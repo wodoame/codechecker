@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components{
+  .form-row{
+    @apply tw-my-2 
+  }
+  .form-row label{
+    @apply tw-my-1 tw-font-semibold
+  }
+   
+  .standard-input{
+    /* to be combined with form-control bootstrap class */
+    /* If anything doesn't look right it's probably because I removed tw-outline-slate-300 (I don't understand why I used it) */
+    @apply tw-rounded-sm tw-border-2 focus:tw-ring-0 focus:tw-border-proj-blue tw-text-slate-600
+  }
+  .form-row.split{
+    @apply md:tw-grid md:tw-grid-cols-2 md:tw-gap-4
+  }
+
+  .setup-form{
+     @apply tw-w-3/5 tw-mx-auto
+  }
+
+  .sidebar-ul li{
+      @apply tw-mb-2 tw-text-lg
+  }
+  
+  .tw-card{
+    /* Combined with bootstrap shadow-sm  */
+    @apply tw-rounded-md tw-p-2 tw-bg-white
+  }
+  .attendance-table tbody, .attendance-table thead{
+    @apply tw-border-2 tw-border-proj-blue/80
+  }
+  
+  .attendance-table tr, .attendance-table td, .attendance-table th{
+    @apply tw-border-2
+  }
+}
+
+
+@layer utilities{
+    .big-heading{
+        @apply tw-font-extrabold tw-text-2xl
+    }
+
+    .black{
+      outline:2px solid black;
+    }
+
+    .flex-center{
+      @apply tw-flex tw-justify-center tw-items-center
+    }
+
+    .hover-highlight li{
+      /* hover-highlight should be placed on a ul element */
+      @apply tw-cursor-pointer hover:tw-bg-sky-500/10 tw-rounded-md tw-p-2
+    }
+
+    .hover-highlight-with-icon li{
+      @apply tw-cursor-pointer hover:tw-bg-sky-500/10 tw-rounded-md tw-p-2 tw-flex tw-justify-between
+    }
+
+    .no-wrap li, .no-wrap a{
+      /* To be placed on ul elements */
+        text-wrap:nowrap;
+    }
+
+    .var-opacity{
+      /* Show when parent is hovered */
+      /* Don't forget to add tw-group to the parent */
+      @apply tw-opacity-0 group-hover:tw-opacity-100
+    }
+  
+}

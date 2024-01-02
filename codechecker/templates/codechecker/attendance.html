@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Attendance Tables{% endblock %}
+{% block main %}
+ 
+<main class="tw-p-2">
+   {% if presentToday %}
+    <h1 class="text-center tw-text-lg m-4 fw-bold tw-underline tw-underline-offset-8">Present Today</h1>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th scope="col" class="tw-border-s-2">#</th>
+                {% for header in headers %}
+                    <th>{{header}}</th>
+                {% endfor %}
+              </tr>
+            </thead>
+            <tbody class="table-group-divider tw-border-t-slate-300">
+              {% for data in presentToday %}
+              <tr class="tw-group">
+                <th scope="row" class="group-hover:tw-border-s-proj-yellow tw-border-s-2 row-number">{{forloop.counter}}</th>
+                {% for key,value in data.items %}
+                    <td>{{value}}</td>
+                {% endfor %}
+              </tr>
+              {% endfor %}
+            </tbody>
+        </table>
+      </div>
+      {% else %}
+      <div>
+        {% for message in messages %}
+          <div class="alert alert-primary text-center">{{message}}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
+</main>
+
+{% endblock %}

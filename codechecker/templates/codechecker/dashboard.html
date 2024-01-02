@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Choose a database{% endblock %}
+{% block style %}
+  <style>
+       body{
+        background:#EEF5FF;
+       }
+  </style>
+{% endblock %}
+{% block main %}
+ <div class="tw-p-2">
+    {% include './components/sidebar.html' %}
+    
+    <main class="tw-relative tw-px-3" style="left:200px; width:calc(100% - 200px);">
+      <nav class="tw-flex tw-justify-between">
+        <h1 class="tw-text-3xl"><span class="tw-text-proj-blue">Dash</span><span>board</span></h1>
+        <div class="tw-flex tw-gap-2" style="width:20%;">
+          <!-- <input type="text" placeholder="Search..." class="form-control standard-input" style="background:#fff;"> -->
+           <div class="tw-flex tw-justify-between tw-shrink-1 tw-px-2 tw-py-1 standard-input" style="background:#fff;">
+               <div style="flex-basis:35px;" class="tw-flex">
+                   <img src="{% static 'images/profile.jpeg' %}" alt="">
+               </div>
+               <div class="tw-text-center tw-flex tw-items-center text-nowrap">
+                   <span> Spencer Williams </span>
+               </div>
+               <div class="tw-flex tw-items-center dropdown">
+                   <button data-bs-toggle="dropdown" aria-expanded="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" class="tw-fill-proj-blue"><path d="M16.293 9.293 12 13.586 7.707 9.293l-1.414 1.414L12 16.414l5.707-5.707z"></path></svg>
+                   </button>
+                   <ul class="dropdown-menu border-0 no-wrap tw-p-2 tw-mt-4 tw-shadow-md hover-highlight">
+                    <li><a href="#">Spencer Williams</a></li>
+                    <li><a href="#">Ogbonna Adams</a></li>
+                    <li><a href="#">James Maddison</a></li>
+                  </ul>
+               </div>
+           </div>
+        </div>
+     </nav>
+       
+
+        <section class="tw-mt-10">
+          {% for message in messages %}
+          <div class="alert alert-success d-flex justify-content-center mb-3"> <span>{{message}}</span>
+           <span>
+               <svg xmlns="http://www.w3.org/2000/svg"  width="21" height="21" class="bi bi-check-lg" viewBox="0 0 16 16">
+                   <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+               </svg>
+           </span>
+         </div>
+        {% endfor %} 
+
+       <div class="tw-grid tw-grid-cols-2 tw-gap-4 tw-items-start">
+         <div>
+           <menu style="background:#fff;" class="tw-p-2 tw-py-4 tw-mb-2 shadow-sm tw-rounded-md">
+             <div class="tw-flex tw-justify-between">
+               <div class="tw-text-2xl">Events</div>
+               <a href="{% url 'setup' %}"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" class="tw-fill-proj-blue tw-cursor-pointer"><path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"></path></svg></a>
+             </div>
+             {% if databases  %}
+              <ul class="hover-highlight-with-icon">
+               {% for db in databases%}
+                 <li class="tw-pe-0">
+                    <a href="{% url 'event' db.slug %}">
+                      {{db.event_title}}
+                    </a>
+         
+                    <a href="{% url 'setup' %}">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" class="tw-fill-proj-blue"><path d="m18.988 2.012 3 3L19.701 7.3l-3-3zM8 16h3l7.287-7.287-3-3L8 13z"></path><path d="M19 19H8.158c-.026 0-.053.01-.079.01-.033 0-.066-.009-.1-.01H5V5h6.847l2-2H5c-1.103 0-2 .896-2 2v14c0 1.104.897 2 2 2h14a2 2 0 0 0 2-2v-8.668l-2 2V19z"></path></svg>
+                    </a>
+                 </li>
+               {% endfor %}
+              </ul>
+              {% else %}
+                <div class="tw-p-2">
+                   No events created yet
+                </div>
+             {% endif %}
+          </menu>
+           <menu style="background:#fff;" class="tw-p-2 tw-py-4 shadow-sm tw-rounded-md">
+             <div class="tw-text-2xl">Most Attended Events </div>
+              <ul class="hover-highlight">
+                 <li>
+                     Facebook Tour
+                 </li>
+         
+                 <li>
+                   Google Engineers Conference
+                 </li>
+         
+              </ul>
+          </menu>
+         </div>
+          <div>
+           <menu style="background:#fff;" class="tw-p-2 tw-mb-2 tw-py-4 shadow-sm tw-rounded-md">
+             <div class="tw-text-2xl">Recently Opened</div>
+              <ul class="hover-highlight">
+                 <li>
+                     Matboot Technology Inc.
+                 </li>
+         
+                 <li>
+                   Google Engineers Conference
+                 </li>
+         
+                 <li>
+                     Facebook Tour
+                 </li>
+         
+              </ul>
+          </menu>
+          <menu style="background:#fff;" class="tw-p-2 tw-py-4 shadow-sm tw-rounded-md">
+           <div class="tw-text-2xl">Least Attended Events</div>
+            <ul class="hover-highlight">
+               <li>
+                   Matboot Technology Inc.
+               </li>
+         
+               <li>
+                 KNUST Data Analytics Conference
+               </li>
+         
+               <li>
+                 De Guzman Awards Ceremony
+               </li>
+               <li>
+                 Google Engineers Conference
+               </li>
+         
+               <li>
+                   Facebook Tour
+               </li>
+         
+            </ul>
+                  </menu>
+          </div>
+       </div>
+          
+        </section>
+    </main>
+  </div>
+{% endblock %}

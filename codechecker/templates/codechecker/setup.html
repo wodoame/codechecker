@@ -1,2 +1,87 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Set up a new event{% endblock %}
+{% block main %}
+{% include 'components/sidebar.html' %}
+<main class="tw-p-4 tw-relative" style="width:calc(100% - 200px);left:200px;">
+    <nav class="tw-flex tw-justify-between">
+        <h1 class="tw-text-3xl first-letter:tw-text-proj-blue">Set up a new event</h1>
+        <!-- Does not look good when the event title is too long  -->
+          <div class="standard-input tw-flex tw-px-2 tw-py-1 tw-gap-2" style="background:#fff; flex-basis:content;">
+              <div style="width:35px;" class="tw-flex">
+                  <img src="{% static 'images/profile.jpeg' %}" alt="">
+              </div>
+              <div class="tw-text-center tw-flex tw-items-center text-nowrap">
+                  <span> Spencer Williams </span>
+              </div>
+              <div class="tw-flex tw-items-center dropdown">
+                  <button data-bs-toggle="dropdown" aria-expanded="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" class="tw-fill-proj-blue"><path d="M16.293 9.293 12 13.586 7.707 9.293l-1.414 1.414L12 16.414l5.707-5.707z"></path></svg>
+                  </button>
+                  <ul class="dropdown-menu border-0 no-wrap tw-p-2 tw-mt-4 tw-shadow-md hover-highlight">
+                  <li><a href="#">Spencer Williams</a></li>
+                  <li><a href="#">Ogbonna Adams</a></li>
+                  <li><a href="#">James Maddison</a></li>
+                </ul>
+              </div>
+          </div>
+     </nav>
+
+    <div class="tw-card shadow-sm tw-p-4 tw-mt-4 tw-mb-3">
+        <div class="tw-text-2xl tw-mb-3">Create event</div>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% for message in messages %}
+                 <div class="form-row">
+                    <div class="alert alert-danger text-center">
+                        {{message}}
+                    </div>
+                 </div>
+            {% endfor %}
+            {% csrf_token %}
+           <div class="form-row split">
+               <div>
+                   <label for="">Event Title</label>
+                   <input type="text" name="event_title" class="form-control standard-input" required>
+               </div>
+            <div>
+                <label for="">Validation Field</label>
+                <input type="text" name="validation_field" class="form-control standard-input tw-border-s-proj-yellow" required>
+            </div>
+           </div>
+        
+           <div class="form-row tw-mb-3">
+             <label for="">Upload a CSV or EXCEL file</label>
+             <input type="file" name="dataset" class="form-control standard-input" required>
+           </div>
+           <div class="form-row tw-flex tw-justify-center">
+                <button class="btn tw-bg-proj-blue tw-rounded-sm tw-shadow-sm tw-p-2 tw-text-white tw-flex">
+                    <span>Create</span>
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg"  width="21" height="21" class="bi bi-check-lg tw-fill-white" viewBox="0 0 16 16">
+                            <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+                        </svg>
+                    </span>
+                </button>
+           </div>
+        </form>
+    </div>
+
+    <div class="tw-card shadow-sm tw-p-4">
+        <div class="tw-text-2xl tw-mb-3">Notes</div>
+        <div class="form-row">
+            <label for="">Event Title</label>
+            <p>This is the name of the event</p>
+        </div>
+        <div class="form-row">
+            <label for="">Validation Field</label>
+            <p>This must be a unique identifier in your dataset</p>
+            <p>For example an ID which is unique to everyone participating in the event</p>
+        </div>
+        <div class="form-row">
+            <label for="">File Upload</label>
+            <p>The application uses CSV files by default</p>
+            <p>EXCEL files can be uploaded instead but will be converted to CSV format</p>
+        </div>
+    </div>
+</main>
+{% endblock %}

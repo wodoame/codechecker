@@ -1,14 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}Check in{% endblock %}
-{% block style %}
-  <style>
-       body{
-        background:#EEF5FF;
-       }
-
-  </style>
-{% endblock %}
 {% block main %}
   
  {% if checked_in %}
@@ -21,104 +13,164 @@
                     <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
                 </svg>
             </span>
-            {% endif  %}
+            {% endif %}
          </div>
         {% endfor %}        
       <div class="d-flex justify-content-center">
-          <a href="{% url 'event' db.id %}" class="tw-text-proj-navy">Go back to check in</a>
+          <a href="{% url 'event' db.slug %}" class="tw-text-proj-navy">Go back to check in</a>
       </div>
     </main>
  {% else %}
+ <aside class="tw-h-full tw-fixed tw-top-0 tw-left-0" style="width:200px; background:#ffffff;">
+     <div class="flex-center">
+       <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" class="tw-fill-proj-blue"><path d="M20.26 7.8a4.82 4.82 0 0 0-3.93-2.44 3.91 3.91 0 0 0-2.54 1.09 10.58 10.58 0 0 0-1.52 1.71 11 11 0 0 0-1.63-1.72 4.39 4.39 0 0 0-2.88-1.08A5 5 0 0 0 3.7 8 11.49 11.49 0 0 0 2 14a7 7 0 0 0 .18 1.64A4.44 4.44 0 0 0 2.71 17a3.23 3.23 0 0 0 3 1.6c1.25 0 2.19-.56 3.3-2a26.4 26.4 0 0 0 2.21-3.6l.63-1.12c.06-.09.11-.18.16-.27l.15.25 1.79 3A14.77 14.77 0 0 0 16 17.63a3.38 3.38 0 0 0 2.55 1 3 3 0 0 0 2.54-1.23 2.2 2.2 0 0 0 .18-.28 4.1 4.1 0 0 0 .31-.63l.12-.35A6.53 6.53 0 0 0 22 15a9 9 0 0 0 0-1 11.15 11.15 0 0 0-1.74-6.2zm-10.12 3.56c-.64 1-1.57 2.51-2.37 3.61-1 1.37-1.51 1.51-2.07 1.51a1.29 1.29 0 0 1-1.15-.66 3.3 3.3 0 0 1-.39-1.7A9.74 9.74 0 0 1 5.54 9a2.8 2.8 0 0 1 2.19-1.47A3 3 0 0 1 10 8.74a14.07 14.07 0 0 1 1 1.31zm8.42 5.12c-.48 0-.85-.19-1.38-.83A34.87 34.87 0 0 1 14.82 12l-.52-.86c-.36-.61-.71-1.16-1-1.65a2.46 2.46 0 0 1 .17-.27c.94-1.39 1.77-2.17 2.8-2.17a3.12 3.12 0 0 1 2.49 1.66 10.17 10.17 0 0 1 1.37 5.34c-.04 1.31-.34 2.43-1.57 2.43z"></path></svg>
+     </div>
+     <ul class="tw-p-2 tw-mt-6 sidebar-ul hover-highlight">
+       <li>
+         <div>
+           <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24"><path d="M4 13h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1zm-1 7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v4zm10 0a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v7zm1-10h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1z"></path></svg>
+         </div>
+         <a href="{% url 'dashboard' %}">Dashboard</a>
+       </li>
+       <li>
+         <div>
+           <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24"><path d="M3 3v17a1 1 0 0 0 1 1h17v-2H5V3H3z"></path><path d="M15.293 14.707a.999.999 0 0 0 1.414 0l5-5-1.414-1.414L16 12.586l-2.293-2.293a.999.999 0 0 0-1.414 0l-5 5 1.414 1.414L13 12.414l2.293 2.293z"></path></svg>          
+         </div>
+         <div>Analytics</div>
+       </li>
+       <li>
+         <div>
+           <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24"><path d="M19 13.586V10c0-3.217-2.185-5.927-5.145-6.742C13.562 2.52 12.846 2 12 2s-1.562.52-1.855 1.258C7.185 4.074 5 6.783 5 10v3.586l-1.707 1.707A.996.996 0 0 0 3 16v2a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-2a.996.996 0 0 0-.293-.707L19 13.586zM19 17H5v-.586l1.707-1.707A.996.996 0 0 0 7 14v-4c0-2.757 2.243-5 5-5s5 2.243 5 5v4c0 .266.105.52.293.707L19 16.414V17zm-7 5a2.98 2.98 0 0 0 2.818-2H9.182A2.98 2.98 0 0 0 12 22z"></path></svg>
+         </div>
+         <div>Notifications</div>
+       </li>
+     
+       <li>
+         <div>
+           <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24"><path d="M12 16c2.206 0 4-1.794 4-4s-1.794-4-4-4-4 1.794-4 4 1.794 4 4 4zm0-6c1.084 0 2 .916 2 2s-.916 2-2 2-2-.916-2-2 .916-2 2-2z"></path><path d="m2.845 16.136 1 1.73c.531.917 1.809 1.261 2.73.73l.529-.306A8.1 8.1 0 0 0 9 19.402V20c0 1.103.897 2 2 2h2c1.103 0 2-.897 2-2v-.598a8.132 8.132 0 0 0 1.896-1.111l.529.306c.923.53 2.198.188 2.731-.731l.999-1.729a2.001 2.001 0 0 0-.731-2.732l-.505-.292a7.718 7.718 0 0 0 0-2.224l.505-.292a2.002 2.002 0 0 0 .731-2.732l-.999-1.729c-.531-.92-1.808-1.265-2.731-.732l-.529.306A8.1 8.1 0 0 0 15 4.598V4c0-1.103-.897-2-2-2h-2c-1.103 0-2 .897-2 2v.598a8.132 8.132 0 0 0-1.896 1.111l-.529-.306c-.924-.531-2.2-.187-2.731.732l-.999 1.729a2.001 2.001 0 0 0 .731 2.732l.505.292a7.683 7.683 0 0 0 0 2.223l-.505.292a2.003 2.003 0 0 0-.731 2.733zm3.326-2.758A5.703 5.703 0 0 1 6 12c0-.462.058-.926.17-1.378a.999.999 0 0 0-.47-1.108l-1.123-.65.998-1.729 1.145.662a.997.997 0 0 0 1.188-.142 6.071 6.071 0 0 1 2.384-1.399A1 1 0 0 0 11 5.3V4h2v1.3a1 1 0 0 0 .708.956 6.083 6.083 0 0 1 2.384 1.399.999.999 0 0 0 1.188.142l1.144-.661 1 1.729-1.124.649a1 1 0 0 0-.47 1.108c.112.452.17.916.17 1.378 0 .461-.058.925-.171 1.378a1 1 0 0 0 .471 1.108l1.123.649-.998 1.729-1.145-.661a.996.996 0 0 0-1.188.142 6.071 6.071 0 0 1-2.384 1.399A1 1 0 0 0 13 18.7l.002 1.3H11v-1.3a1 1 0 0 0-.708-.956 6.083 6.083 0 0 1-2.384-1.399.992.992 0 0 0-1.188-.141l-1.144.662-1-1.729 1.124-.651a1 1 0 0 0 .471-1.108z"></path></svg>         
+         </div>
+         <div>Settings</div>
+       </li>
+       <li class="tw-bg-sky-500/10">
+         <div>
+             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"  class="tw-fill-proj-blue"><path d="M19 4h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm-1 15h-6v-6h6v6zm1-10H5V7h14v2z"></path></svg>            
+         </div>
+         <div class="text-truncate">{{db.event_title}}</div>
+       </li>
+       
+     </ul>
+  </aside>
+
   <main class="tw-p-4 tw-relative" style="width:calc(100% - 200px);left:200px;">
-    <aside class="tw-h-full tw-fixed tw-top-0 tw-left-0" style="width:200px; background:#ffffff;">
-        <div class="flex-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" class="tw-fill-proj-blue"><path d="M20.26 7.8a4.82 4.82 0 0 0-3.93-2.44 3.91 3.91 0 0 0-2.54 1.09 10.58 10.58 0 0 0-1.52 1.71 11 11 0 0 0-1.63-1.72 4.39 4.39 0 0 0-2.88-1.08A5 5 0 0 0 3.7 8 11.49 11.49 0 0 0 2 14a7 7 0 0 0 .18 1.64A4.44 4.44 0 0 0 2.71 17a3.23 3.23 0 0 0 3 1.6c1.25 0 2.19-.56 3.3-2a26.4 26.4 0 0 0 2.21-3.6l.63-1.12c.06-.09.11-.18.16-.27l.15.25 1.79 3A14.77 14.77 0 0 0 16 17.63a3.38 3.38 0 0 0 2.55 1 3 3 0 0 0 2.54-1.23 2.2 2.2 0 0 0 .18-.28 4.1 4.1 0 0 0 .31-.63l.12-.35A6.53 6.53 0 0 0 22 15a9 9 0 0 0 0-1 11.15 11.15 0 0 0-1.74-6.2zm-10.12 3.56c-.64 1-1.57 2.51-2.37 3.61-1 1.37-1.51 1.51-2.07 1.51a1.29 1.29 0 0 1-1.15-.66 3.3 3.3 0 0 1-.39-1.7A9.74 9.74 0 0 1 5.54 9a2.8 2.8 0 0 1 2.19-1.47A3 3 0 0 1 10 8.74a14.07 14.07 0 0 1 1 1.31zm8.42 5.12c-.48 0-.85-.19-1.38-.83A34.87 34.87 0 0 1 14.82 12l-.52-.86c-.36-.61-.71-1.16-1-1.65a2.46 2.46 0 0 1 .17-.27c.94-1.39 1.77-2.17 2.8-2.17a3.12 3.12 0 0 1 2.49 1.66 10.17 10.17 0 0 1 1.37 5.34c-.04 1.31-.34 2.43-1.57 2.43z"></path></svg>
-        </div>
-        <ul class="tw-p-2 tw-mt-6 sidebar-ul hover-highlight">
-          <li class="tw-flex tw-p-2 tw-gap-2">
-            <div>
-              <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24"><path d="M4 13h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1zm-1 7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v4zm10 0a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v7zm1-10h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1z"></path></svg>
-            </div>
-            <a href="{% url 'dashboard' %}">Dashboard</a>
-          </li>
-          <li class="tw-flex tw-p-2 tw-gap-2">
-            <div>
-              <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24"><path d="M3 3v17a1 1 0 0 0 1 1h17v-2H5V3H3z"></path><path d="M15.293 14.707a.999.999 0 0 0 1.414 0l5-5-1.414-1.414L16 12.586l-2.293-2.293a.999.999 0 0 0-1.414 0l-5 5 1.414 1.414L13 12.414l2.293 2.293z"></path></svg>          
-            </div>
-            <div>Analytics</div>
-          </li>
-          <li class="tw-flex tw-p-2 tw-gap-2">
-            <div>
-              <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24"><path d="M19 13.586V10c0-3.217-2.185-5.927-5.145-6.742C13.562 2.52 12.846 2 12 2s-1.562.52-1.855 1.258C7.185 4.074 5 6.783 5 10v3.586l-1.707 1.707A.996.996 0 0 0 3 16v2a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-2a.996.996 0 0 0-.293-.707L19 13.586zM19 17H5v-.586l1.707-1.707A.996.996 0 0 0 7 14v-4c0-2.757 2.243-5 5-5s5 2.243 5 5v4c0 .266.105.52.293.707L19 16.414V17zm-7 5a2.98 2.98 0 0 0 2.818-2H9.182A2.98 2.98 0 0 0 12 22z"></path></svg>
-            </div>
-            <div>Notifications</div>
-          </li>
-        
-          <li class="tw-flex tw-p-2 tw-gap-2">
-            <div>
-              <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24"><path d="M12 16c2.206 0 4-1.794 4-4s-1.794-4-4-4-4 1.794-4 4 1.794 4 4 4zm0-6c1.084 0 2 .916 2 2s-.916 2-2 2-2-.916-2-2 .916-2 2-2z"></path><path d="m2.845 16.136 1 1.73c.531.917 1.809 1.261 2.73.73l.529-.306A8.1 8.1 0 0 0 9 19.402V20c0 1.103.897 2 2 2h2c1.103 0 2-.897 2-2v-.598a8.132 8.132 0 0 0 1.896-1.111l.529.306c.923.53 2.198.188 2.731-.731l.999-1.729a2.001 2.001 0 0 0-.731-2.732l-.505-.292a7.718 7.718 0 0 0 0-2.224l.505-.292a2.002 2.002 0 0 0 .731-2.732l-.999-1.729c-.531-.92-1.808-1.265-2.731-.732l-.529.306A8.1 8.1 0 0 0 15 4.598V4c0-1.103-.897-2-2-2h-2c-1.103 0-2 .897-2 2v.598a8.132 8.132 0 0 0-1.896 1.111l-.529-.306c-.924-.531-2.2-.187-2.731.732l-.999 1.729a2.001 2.001 0 0 0 .731 2.732l.505.292a7.683 7.683 0 0 0 0 2.223l-.505.292a2.003 2.003 0 0 0-.731 2.733zm3.326-2.758A5.703 5.703 0 0 1 6 12c0-.462.058-.926.17-1.378a.999.999 0 0 0-.47-1.108l-1.123-.65.998-1.729 1.145.662a.997.997 0 0 0 1.188-.142 6.071 6.071 0 0 1 2.384-1.399A1 1 0 0 0 11 5.3V4h2v1.3a1 1 0 0 0 .708.956 6.083 6.083 0 0 1 2.384 1.399.999.999 0 0 0 1.188.142l1.144-.661 1 1.729-1.124.649a1 1 0 0 0-.47 1.108c.112.452.17.916.17 1.378 0 .461-.058.925-.171 1.378a1 1 0 0 0 .471 1.108l1.123.649-.998 1.729-1.145-.661a.996.996 0 0 0-1.188.142 6.071 6.071 0 0 1-2.384 1.399A1 1 0 0 0 13 18.7l.002 1.3H11v-1.3a1 1 0 0 0-.708-.956 6.083 6.083 0 0 1-2.384-1.399.992.992 0 0 0-1.188-.141l-1.144.662-1-1.729 1.124-.651a1 1 0 0 0 .471-1.108z"></path></svg>         
-            </div>
-            <div>Settings</div>
-          </li>
-          <li class="tw-flex tw-p-2 tw-gap-2 tw-bg-sky-500/10">
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"  class="tw-fill-proj-blue"><path d="M19 4h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm-1 15h-6v-6h6v6zm1-10H5V7h14v2z"></path></svg>            
-            </div>
-            <div class="text-truncate">{{db.event_title}}</div>
-          </li>
-          
-        </ul>
-     </aside>
     <nav class="tw-flex tw-justify-between">
         <h1 class="tw-text-3xl first-letter:tw-text-proj-blue">{{db.event_title}}</h1>
         <!-- Does not look good when the event title is too long  -->
-        <!-- <div class="form-control standard-input tw-flex tw-gap-3" style="flex-basis:content;">
-            <a href="{% url 'setup' %}"><svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" viewBox="0 0 24 24" class="tw-fill-proj-blue tw-cursor-pointer"><path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"></path></svg></a>
-            <a href="{% url 'setup' %}">
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" class="tw-fill-proj-blue"><path d="m18.988 2.012 3 3L19.701 7.3l-3-3zM8 16h3l7.287-7.287-3-3L8 13z"></path><path d="M19 19H8.158c-.026 0-.053.01-.079.01-.033 0-.066-.009-.1-.01H5V5h6.847l2-2H5c-1.103 0-2 .896-2 2v14c0 1.104.897 2 2 2h14a2 2 0 0 0 2-2v-8.668l-2 2V19z"></path></svg>
-            </a>
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"  class="tw-fill-proj-blue"><path d="M12 16c2.206 0 4-1.794 4-4s-1.794-4-4-4-4 1.794-4 4 1.794 4 4 4zm0-6c1.084 0 2 .916 2 2s-.916 2-2 2-2-.916-2-2 .916-2 2-2z"></path><path d="m2.845 16.136 1 1.73c.531.917 1.809 1.261 2.73.73l.529-.306A8.1 8.1 0 0 0 9 19.402V20c0 1.103.897 2 2 2h2c1.103 0 2-.897 2-2v-.598a8.132 8.132 0 0 0 1.896-1.111l.529.306c.923.53 2.198.188 2.731-.731l.999-1.729a2.001 2.001 0 0 0-.731-2.732l-.505-.292a7.718 7.718 0 0 0 0-2.224l.505-.292a2.002 2.002 0 0 0 .731-2.732l-.999-1.729c-.531-.92-1.808-1.265-2.731-.732l-.529.306A8.1 8.1 0 0 0 15 4.598V4c0-1.103-.897-2-2-2h-2c-1.103 0-2 .897-2 2v.598a8.132 8.132 0 0 0-1.896 1.111l-.529-.306c-.924-.531-2.2-.187-2.731.732l-.999 1.729a2.001 2.001 0 0 0 .731 2.732l.505.292a7.683 7.683 0 0 0 0 2.223l-.505.292a2.003 2.003 0 0 0-.731 2.733zm3.326-2.758A5.703 5.703 0 0 1 6 12c0-.462.058-.926.17-1.378a.999.999 0 0 0-.47-1.108l-1.123-.65.998-1.729 1.145.662a.997.997 0 0 0 1.188-.142 6.071 6.071 0 0 1 2.384-1.399A1 1 0 0 0 11 5.3V4h2v1.3a1 1 0 0 0 .708.956 6.083 6.083 0 0 1 2.384 1.399.999.999 0 0 0 1.188.142l1.144-.661 1 1.729-1.124.649a1 1 0 0 0-.47 1.108c.112.452.17.916.17 1.378 0 .461-.058.925-.171 1.378a1 1 0 0 0 .471 1.108l1.123.649-.998 1.729-1.145-.661a.996.996 0 0 0-1.188.142 6.071 6.071 0 0 1-2.384 1.399A1 1 0 0 0 13 18.7l.002 1.3H11v-1.3a1 1 0 0 0-.708-.956 6.083 6.083 0 0 1-2.384-1.399.992.992 0 0 0-1.188-.141l-1.144.662-1-1.729 1.124-.651a1 1 0 0 0 .471-1.108z"></path></svg>         
-            </div>
+        <div class="tw-flex tw-gap-2">
+          <div class="standard-input flex-center tw-gap-2" style="background:#fff;">
+              <a  class="highlight-cursor tw-w-9 tw-h-9" href="{% url 'add-person' db.slug %}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" viewBox="0 0 24 24" class="tw-fill-proj-blue tw-cursor-pointer"><path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"></path></svg>
+              </a>
+              <a  class="highlight-cursor tw-w-9 tw-h-9" href="{% url 'setup' %}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" class="tw-fill-proj-blue"><path d="m18.988 2.012 3 3L19.701 7.3l-3-3zM8 16h3l7.287-7.287-3-3L8 13z"></path><path d="M19 19H8.158c-.026 0-.053.01-.079.01-.033 0-.066-.009-.1-.01H5V5h6.847l2-2H5c-1.103 0-2 .896-2 2v14c0 1.104.897 2 2 2h14a2 2 0 0 0 2-2v-8.668l-2 2V19z"></path></svg>
+              </a>
+          
+              <a  class="highlight-cursor tw-w-9 tw-h-9" href="">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"  class="tw-fill-proj-blue"><path d="M12 16c2.206 0 4-1.794 4-4s-1.794-4-4-4-4 1.794-4 4 1.794 4 4 4zm0-6c1.084 0 2 .916 2 2s-.916 2-2 2-2-.916-2-2 .916-2 2-2z"></path><path d="m2.845 16.136 1 1.73c.531.917 1.809 1.261 2.73.73l.529-.306A8.1 8.1 0 0 0 9 19.402V20c0 1.103.897 2 2 2h2c1.103 0 2-.897 2-2v-.598a8.132 8.132 0 0 0 1.896-1.111l.529.306c.923.53 2.198.188 2.731-.731l.999-1.729a2.001 2.001 0 0 0-.731-2.732l-.505-.292a7.718 7.718 0 0 0 0-2.224l.505-.292a2.002 2.002 0 0 0 .731-2.732l-.999-1.729c-.531-.92-1.808-1.265-2.731-.732l-.529.306A8.1 8.1 0 0 0 15 4.598V4c0-1.103-.897-2-2-2h-2c-1.103 0-2 .897-2 2v.598a8.132 8.132 0 0 0-1.896 1.111l-.529-.306c-.924-.531-2.2-.187-2.731.732l-.999 1.729a2.001 2.001 0 0 0 .731 2.732l.505.292a7.683 7.683 0 0 0 0 2.223l-.505.292a2.003 2.003 0 0 0-.731 2.733zm3.326-2.758A5.703 5.703 0 0 1 6 12c0-.462.058-.926.17-1.378a.999.999 0 0 0-.47-1.108l-1.123-.65.998-1.729 1.145.662a.997.997 0 0 0 1.188-.142 6.071 6.071 0 0 1 2.384-1.399A1 1 0 0 0 11 5.3V4h2v1.3a1 1 0 0 0 .708.956 6.083 6.083 0 0 1 2.384 1.399.999.999 0 0 0 1.188.142l1.144-.661 1 1.729-1.124.649a1 1 0 0 0-.47 1.108c.112.452.17.916.17 1.378 0 .461-.058.925-.171 1.378a1 1 0 0 0 .471 1.108l1.123.649-.998 1.729-1.145-.661a.996.996 0 0 0-1.188.142 6.071 6.071 0 0 1-2.384 1.399A1 1 0 0 0 13 18.7l.002 1.3H11v-1.3a1 1 0 0 0-.708-.956 6.083 6.083 0 0 1-2.384-1.399.992.992 0 0 0-1.188-.141l-1.144.662-1-1.729 1.124-.651a1 1 0 0 0 .471-1.108z"></path></svg>
+              </a>
 
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" class="tw-fill-proj-blue"><path d="M5 20a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8h2V6h-4V4a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2H3v2h2zM9 4h6v2H9zM8 8h9v12H7V8z"></path><path d="M9 10h2v8H9zm4 0h2v8h-2z"></path></svg>
-            </div>
+              <a  class="highlight-cursor tw-w-9 tw-h-9" href="">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" class="tw-fill-proj-blue"><path d="M5 20a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8h2V6h-4V4a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2H3v2h2zM9 4h6v2H9zM8 8h9v12H7V8z"></path><path d="M9 10h2v8H9zm4 0h2v8h-2z"></path></svg>
+              </a>
             
-        </div> -->
-        <div class="standard-input tw-flex tw-px-2 tw-py-1 tw-gap-2" style="background:#fff; flex-basis:content;">
-            <div style="width:35px;" class="tw-flex">
-                <img src="{% static 'images/profile.jpeg' %}" alt="">
-            </div>
-            <div class="tw-text-center tw-flex tw-items-center text-nowrap">
-                <span> Spencer Williams </span>
-            </div>
-            <div class="tw-flex tw-items-center dropdown">
-                <button data-bs-toggle="dropdown" aria-expanded="true">
-                <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" class="tw-fill-proj-blue"><path d="M16.293 9.293 12 13.586 7.707 9.293l-1.414 1.414L12 16.414l5.707-5.707z"></path></svg>
-                </button>
-                <ul class="dropdown-menu border-0 no-wrap tw-p-2 tw-mt-4 tw-shadow-md hover-highlight">
-                <li><a href="#">Spencer Williams</a></li>
-                <li><a href="#">Ogbonna Adams</a></li>
-                <li><a href="#">James Maddison</a></li>
-              </ul>
-            </div>
+          </div>
+
+          <div class="standard-input tw-flex tw-px-2 tw-py-1 tw-gap-2" style="background:#fff; flex-basis:content;">
+              <div style="width:35px;" class="tw-flex">
+                  <img src="{% static 'images/profile.jpeg' %}" alt="">
+              </div>
+              <div class="tw-text-center tw-flex tw-items-center text-nowrap">
+                  <span> Spencer Williams </span>
+              </div>
+              <div class="tw-flex tw-items-center dropdown">
+                  <button data-bs-toggle="dropdown" aria-expanded="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" class="tw-fill-proj-blue"><path d="M16.293 9.293 12 13.586 7.707 9.293l-1.414 1.414L12 16.414l5.707-5.707z"></path></svg>
+                  </button>
+                  <ul class="dropdown-menu border-0 no-wrap tw-p-2 tw-mt-4 tw-shadow-md hover-highlight">
+                  <li><a href="#">Spencer Williams</a></li>
+                  <li><a href="#">Ogbonna Adams</a></li>
+                  <li><a href="#">James Maddison</a></li>
+                </ul>
+              </div>
+          </div>
         </div>
      </nav>
 
-     <form action="" method="POST" class="tw-mt-10 tw-mb-3 tw-card shadow-md tw-p-4">
+     <form action="" method="POST" class="tw-mt-10 tw-mb-3 tw-card shadow-sm tw-p-4">
       {% csrf_token %}
       <div class="tw-text-2xl tw-mb-3">Check in </div>
        <div>
-           <input type="text" name="validation_field" placeholder="Enter {{db.validation_field | upper}} ... " class="standard-input form-control" required>
+           <input type="text" name="validation_field" placeholder="Enter {{db.validation_field | upper}} ... " class="standard-input form-control" required autocomplete="off">
        </div>
        <div class="form-row tw-mt-4">
           <button class="btn tw-bg-proj-blue tw-rounded-sm tw-shadow-sm tw-text-white tw-block tw-mx-auto">Check in</button>
        </div>
       </form>
+      
+      <section class="tw-grid tw-grid-cols-2 tw-gap-4 tw-items-start tw-mb-3">
+        <div class="tw-card tw-p-4 shadow-sm">
+          <menu>
+            <div class="tw-text-2xl">Top attenders</div>
+             <ul class="normalize">
+                <li>
+                  <!-- 
+                    The first thing I tried was putting display flex on the li element but for some reason
+                    it made the numbering disappear . 
 
+                     So I used a single div with display flex inside the li element but it was wrapping down for some reason. 
+
+                     So I wrapped that div in another div with display inline block so that
+                      it stays in line whilst the inner div has display flex .
+                  -->
+                  <div class="tw-inline-block">
+                    <div class="tw-flex tw-gap-3">
+                      <span >Jonathan De Guzman</span>
+                      <span>
+                        <svg xmlns="http://www.w3.org/2000/svg"  width="21" height="21" class="bi bi-check-lg tw-fill-green-600" viewBox="0 0 16 16">
+                            <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                </li>
+                <li>Max Kilman</li>
+             </ul>
+          </menu>
+        </div>
+        <div class="tw-card tw-p-4 shadow-sm">
+          <menu>
+            <div class="tw-text-2xl">Top absentees</div>
+             <ul class="normalize">
+                <li>
+                  <div class="tw-inline-block">
+                    <div class="tw-flex tw-gap-3">
+                      <span >Alex Grimaldo</span>
+                      <span>
+                        <svg xmlns="http://www.w3.org/2000/svg"  width="21" height="21" class="bi bi-check-lg tw-fill-green-600" viewBox="0 0 16 16">
+                            <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                </li>
+                <li>Sabastian Haller</li>
+                <li>Adame Traore</li>
+             </ul>
+          </menu>
+        </div>
+
+      </section>
     
-      <section class="tw-card shadow-md tw-p-4">
+      <section class="tw-card shadow-sm tw-p-4">
         <div class="tw-text-2xl tw-mb-3">Present Today <small class="tw-text-sm text-muted">({{presentToday | length}})</small></div>
         {% if presentToday %}
         <div class="table-responsive">
@@ -135,7 +187,7 @@
                 <tbody class="table-group-divider">
                   {% for person in presentToday %}
                     <tr class="tw-group">
-                      <td scope="row" class="group-hover:tw-border-s-proj-yellow">{{forloop.counter}}</td>
+                      <td scope="row" class="group-hover:tw-border-s-proj-blue">{{forloop.counter}}</td>
                       {% for item in person.values  %}
                       <td>{{item}}</td>
                       {% endfor %}
@@ -152,78 +204,6 @@
 
 
       </section>
-
-{% comment %}
-     <!-- <div class="tw-mt-10 w-75 mx-auto">
-        <input type="text" class="standard-input form-control">
-     </div> -->
-<!-- 
-     <section class="tw-mt-10 ">
-        <form class="tw-card shadow-sm tw-w-5/6 tw-p-4 tw-mx-auto tw-py-7">
-            <div class="tw-text-2xl">Enter your {{db.validation_field | upper}}</span></div>
-            <div class="tw-mt-4">
-                <input type="text" class="standard-input form-control" autofocus>
-            </div>
-
-            <div class="tw-flex tw-justify-center tw-mt-4">
-                <button class="tw-border-0 tw-rounded tw-group tw-flex tw-outline tw-outline-2 tw-outline-proj-blue tw-text-proj-blue p-2 hover:tw-bg-proj-navy hover:tw-text-white hover:tw-outline-0">
-                    <span>Check in</span>  
-                    <span>
-                        <svg xmlns="http://www.w3.org/2000/svg"  width="24" height="24" class="bi bi-check-lg tw-fill-proj-blue group-hover:tw-fill-white" viewBox="0 0 16 16">
-                            <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
-                        </svg>
-                    </span>
-                </button>
-            </div>
-
-        </form>
-
-        <div class="tw-card shadow-sm tw-w-5/6 tw-p-4 tw-mx-auto tw-py-7 tw-mt-5">
-            <div class="tw-text-2xl">Attendance</div>
-        </div>
-     </section> -->
-    <!-- <h1 class="text-center big-heading tw-text-slate-700 tw-mb-4">{{db.event_title}}</h1>
-      
-
-      <form action="" class="setup-form" method="POST">
-        {% csrf_token %}
-        {% for message in messages %}
-        <div class="form-row">
-            <div class="alert alert-danger d-flex justify-content-center"> <span>{{message}}</span>
-            </div>
-        </div>
-    {% endfor %}    
-        <div class="form-row">
-            <div>
-                <label for="">Enter your {{db.validation_field|upper}}</label>
-                <input type="text" name="validation_field" class="form-control standard-input tw-border-s-proj-yellow" required autocomplete="off">
-            </div>
-         <div>
-
-        <div>
-            <input type="hidden" name="database_id" value="{{db.id}}">
-        </div>
-
-        <div class="form-row tw-flex tw-justify-center">
-            <button class="tw-border-0 tw-rounded tw-group tw-flex tw-bg-transparent tw-outline tw-outline-2 tw-outline-proj-blue tw-text-proj-blue p-2 hover:tw-bg-proj-navy hover:tw-text-white hover:tw-outline-0">
-                <span>Check in</span>  
-                <span>
-                    <svg xmlns="http://www.w3.org/2000/svg"  width="24" height="24" class="bi bi-check-lg tw-fill-proj-blue group-hover:tw-fill-white" viewBox="0 0 16 16">
-                        <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
-                    </svg>
-                </span>
-            </button>
-        </div>
-      </form>
-
-      <div class="d-flex justify-content-center mt-5 gap-2">
-        <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="tw-fill-proj-blue"><circle cx="6" cy="4" r="2"></circle><path d="M9 7H3a1 1 0 0 0-1 1v7h2v7h4v-7h2V8a1 1 0 0 0-1-1z"></path><circle cx="17" cy="4" r="2"></circle><path d="M20.21 7.73a1 1 0 0 0-1-.73h-4.5a1 1 0 0 0-1 .73L12 14h2l-1 4h2v4h4v-4h2l-1-4h2z"></path></svg></span>
-        <a href="{% url 'attendance' db.id %}" class="tw-text-proj-navy">Check attendance</a>
-        <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="tw-fill-proj-blue"><path d="M20 17V7c0-2.168-3.663-4-8-4S4 4.832 4 7v10c0 2.168 3.663 4 8 4s8-1.832 8-4zM12 5c3.691 0 5.931 1.507 6 1.994C17.931 7.493 15.691 9 12 9S6.069 7.493 6 7.006C6.069 6.507 8.309 5 12 5zM6 9.607C7.479 10.454 9.637 11 12 11s4.521-.546 6-1.393v2.387c-.069.499-2.309 2.006-6 2.006s-5.931-1.507-6-2V9.607zM6 17v-2.393C7.479 15.454 9.637 16 12 16s4.521-.546 6-1.393v2.387c-.069.499-2.309 2.006-6 2.006s-5.931-1.507-6-2z"></path></svg></span>
-        <a href="{% url 'choose-database' %}" class="tw-text-proj-navy">Your Databases</a>
-    </div> -->
-
-  {% endcomment %}
   </main>
 {% endif %}
 {% endblock %}

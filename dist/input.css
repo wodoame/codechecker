@@ -5,7 +5,7 @@
 
 @layer components{
   .form-row{
-    @apply tw-my-2 
+    @apply tw-my-2 tw-p-2
   }
   .form-row label{
     @apply tw-my-1 tw-font-semibold
@@ -25,20 +25,28 @@
   }
 
   .sidebar-ul li{
-      @apply tw-mb-2 tw-text-lg
+      @apply tw-mb-2 tw-text-lg tw-flex tw-items-center tw-p-2 tw-gap-2
   }
   
   .tw-card{
-    /* Combined with bootstrap shadow-sm  */
+    /* Combined with bootstrap shadow-sm (optional) */
     @apply tw-rounded-md tw-p-2 tw-bg-white
   }
   .attendance-table tbody, .attendance-table thead{
-    @apply tw-border-2 tw-border-proj-blue/80
+    /* tw-border-proj-blue/80 */
+    @apply tw-border-2 tw-border-slate-400
   }
   
   .attendance-table tr, .attendance-table td, .attendance-table th{
     @apply tw-border-2
   }
+
+  /* .attendance-table tbody tr, .attendance-table tbody tr td{
+    @apply hover:tw-border-proj-blue/80
+  } */
+
+  
+
 }
 
 
@@ -60,6 +68,16 @@
       @apply tw-cursor-pointer hover:tw-bg-sky-500/10 tw-rounded-md tw-p-2
     }
 
+    .normalize{
+      @apply tw-list-decimal tw-list-inside
+    }
+
+    .normalize li{
+      /* should be placed on a ul element */
+      /* It's just to achieve the styling of hover-highlight but without the highlighting */
+      @apply tw-p-2
+    }
+
     .hover-highlight-with-icon li{
       @apply tw-cursor-pointer hover:tw-bg-sky-500/10 tw-rounded-md tw-p-2 tw-flex tw-justify-between
     }
@@ -73,6 +91,11 @@
       /* Show when parent is hovered */
       /* Don't forget to add tw-group to the parent */
       @apply tw-opacity-0 group-hover:tw-opacity-100
+    }
+
+    .highlight-cursor{
+      /* Element must have equal width and height to make it square */
+      @apply hover:tw-bg-sky-500/10 tw-cursor-pointer tw-rounded-full tw-flex tw-justify-center tw-items-center
     }
   
 }

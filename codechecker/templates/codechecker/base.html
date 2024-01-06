@@ -19,6 +19,7 @@
         body{
             font-family: "Poppins-Medium";
             font-size:95%;
+            background:#EEF5FF;
         }
         .poppins-regular{
             font-family: 'Poppins-Medium';
@@ -29,47 +30,7 @@
 </head>
 <body>
     {% block main %}
-    <main class="tw-p-2 mt-4">
-        <!-- <div class="alert alert-primary text-center">Welcome, let's set up a database</div> -->
-        <h1 class="text-center big-heading tw-text-slate-700 tw-mb-4">Set up a new event</h1>
-        <form action="" method="POST" class="setup-form" enctype="multipart/form-data">
-            {% for message in messages %}
-                 <div class="form-row">
-                    <div class="alert alert-danger text-center">
-                        {{message}}
-                    </div>
-                 </div>
-            {% endfor %}
-            {% csrf_token %}
-           <div class="form-row split">
-               <div>
-                   <label for="">Event Title</label>
-                   <input type="text" name="event_title" class="form-control standard-input">
-               </div>
-            <div>
-                <label for="">Validation Field</label>
-                <input type="text" name="validation_field" class="form-control standard-input tw-border-s-proj-yellow">
-            </div>
-           </div>
-           
-           <div class="form-row tw-mb-3">
-             <label for="">Upload a CSV or EXCEL file</label>
-             <input type="file" name="dataset" class="form-control standard-input">
-           </div>
-
-           <div class="form-row tw-flex tw-justify-center">
-            <button class="tw-border-0 tw-rounded tw-group tw-flex tw-bg-transparent tw-outline tw-outline-2 tw-outline-proj-blue tw-text-proj-blue p-2 hover:tw-bg-proj-navy hover:tw-text-white hover:tw-outline-0">
-                <span>Create</span>  
-                <span>
-                    <svg xmlns="http://www.w3.org/2000/svg"  width="24" height="24" class="bi bi-check-lg tw-fill-proj-blue group-hover:tw-fill-white" viewBox="0 0 16 16">
-                        <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
-                    </svg>
-                </span>
-            </button>
-           </div>
-
-        </form>
-    </main>
+    
     {% endblock %}
     <script src="{% static 'script/bootstrap.bundle.min.js' %}">
 

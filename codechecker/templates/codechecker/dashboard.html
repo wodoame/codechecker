@@ -1,17 +1,25 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Choose a database{% endblock %}
+{% block title %}Dashboard | Choose an event{% endblock %}
 {% block style %}
-  <style>
+  <!-- <style>
        body{
-        background:#EEF5FF;
+        background:#0D1117; /*github dark*/
        }
-  </style>
+
+       .dark{
+        /*
+        background:#2A2D3E !important; 
+        
+        */
+        background:#21262D !important;  /*github semi-dark*/
+         color:#D4D4D9;
+       }
+  </style> -->
 {% endblock %}
 {% block main %}
  <div class="tw-p-2">
     {% include './components/sidebar.html' %}
-    
     <main class="tw-relative tw-px-3" style="left:200px; width:calc(100% - 200px);">
       <nav class="tw-flex tw-justify-between">
         <h1 class="tw-text-3xl"><span class="tw-text-proj-blue">Dash</span><span>board</span></h1>
@@ -52,7 +60,7 @@
 
        <div class="tw-grid tw-grid-cols-2 tw-gap-4 tw-items-start">
          <div>
-           <menu style="background:#fff;" class="tw-p-2 tw-py-4 tw-mb-2 shadow-sm tw-rounded-md">
+           <menu style="background:#fff;" class="dark tw-p-2 tw-py-4 tw-mb-2 shadow-sm tw-rounded-md">
              <div class="tw-flex tw-justify-between">
                <div class="tw-text-2xl">Events</div>
                <a href="{% url 'setup' %}"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" class="tw-fill-proj-blue tw-cursor-pointer"><path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"></path></svg></a>
@@ -80,13 +88,34 @@
            <menu style="background:#fff;" class="tw-p-2 tw-py-4 shadow-sm tw-rounded-md">
              <div class="tw-text-2xl">Most Attended Events </div>
               <ul class="hover-highlight">
+                {% if most_attended %}
+                  {% for event in most_attended %}
+                  {% if forloop.first %}
+                  <li>
+                     <div class="tw-flex tw-gap-3">
+                      <a href="{% url 'event' event.event.slug %}">
+                        {{event.event.event_title}}
+                      </a>
+                       <span>
+                         <svg xmlns="http://www.w3.org/2000/svg"  width="21" height="21" class="bi bi-check-lg tw-fill-green-600" viewBox="0 0 16 16">
+                             <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+                         </svg>
+                       </span>
+                     </div>
+                  </li>
+                  {% else %}
+                  <li>
+                    <a href="{% url 'event' event.event.slug %}">
+                      {{event.event.event_title}}
+                    </a>
+                </li>
+                  {% endif %}
+                 {% endfor %}
+                 {% else %}
                  <li>
-                     Facebook Tour
-                 </li>
-         
-                 <li>
-                   Google Engineers Conference
-                 </li>
+                  No events created yet
+                </li>
+                 {% endif %}
          
               </ul>
           </menu>
@@ -95,42 +124,53 @@
            <menu style="background:#fff;" class="tw-p-2 tw-mb-2 tw-py-4 shadow-sm tw-rounded-md">
              <div class="tw-text-2xl">Recently Opened</div>
               <ul class="hover-highlight">
-                 <li>
-                     Matboot Technology Inc.
-                 </li>
-         
-                 <li>
-                   Google Engineers Conference
-                 </li>
-         
-                 <li>
-                     Facebook Tour
-                 </li>
-         
+                {% if recently_opened %}
+                  {% for event in recently_opened %}
+                      <li>
+                          <a href="{% url 'event' event.slug %}">
+                            {{event.event_title}}
+                          </a>
+                      </li>
+                  {% endfor %}
+                {% else %}
+                <li>
+                  No events opened yet
+                </li>
+                {% endif %}
               </ul>
           </menu>
           <menu style="background:#fff;" class="tw-p-2 tw-py-4 shadow-sm tw-rounded-md">
            <div class="tw-text-2xl">Least Attended Events</div>
             <ul class="hover-highlight">
-               <li>
-                   Matboot Technology Inc.
-               </li>
-         
-               <li>
-                 KNUST Data Analytics Conference
-               </li>
-         
-               <li>
-                 De Guzman Awards Ceremony
-               </li>
-               <li>
-                 Google Engineers Conference
-               </li>
-         
-               <li>
-                   Facebook Tour
-               </li>
-         
+              {% if most_attended %}
+              {% for event in most_attended reversed %}
+              {% if forloop.first %}
+              <li>
+                 <div class="tw-flex tw-gap-3">
+                  <a href="{% url 'event' event.event.slug %}">
+                    {{event.event.event_title}}
+                  </a>
+                   <span>
+                     <svg xmlns="http://www.w3.org/2000/svg"  width="21" height="21" class="bi bi-check-lg tw-fill-green-600" viewBox="0 0 16 16">
+                         <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+                     </svg>
+                   </span>
+                 </div>
+              </li>
+              {% else %}
+              <li>
+                <a href="{% url 'event' event.event.slug %}">
+                  {{event.event.event_title}}
+                </a>
+            </li>
+              {% endif %}
+             {% endfor %}
+             {% else %}
+             <li>
+              No events created yet
+            </li>
+             {% endif %}
+     
             </ul>
                   </menu>
           </div>

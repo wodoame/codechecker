@@ -6,12 +6,13 @@ from django.http import HttpResponse
 from django.views import View
 from django.views.generic import TemplateView
 from django.forms.models import modelform_factory
-from .models import Event
+from .models import Event, AppData
 import csv
 from django.contrib import messages
 from datetime import datetime
 from openpyxl import load_workbook
 import os
+from collections import deque, Counter
 
 def populate_model_from_spreadsheet(data_file):
     # Load the data from the spreadsheet
@@ -147,7 +148,6 @@ class SetupEvent(View):
         newpath = filepath
         if is_excel_file:
             newpath = filepath.removesuffix('.xlsx') + '.csv'
-            print(filepath, newpath)
             wb = load_workbook(filepath)
             sheet = wb.active
             data = sheet.iter_rows(values_only=True)
@@ -159,7 +159,6 @@ class SetupEvent(View):
                 csv_writer.writerows(data)
                 db.dataset.name = newpath
                 db.save()
-                print(filepath)
                 os.remove(filepath)
         else: 
             with open(newpath, 'r', newline='') as uploaded_file:
@@ -192,7 +191,6 @@ class SetupEvent(View):
 class ViewEvent(View):
     template_name='event.html'
     def blank(self, request, context={}):
-        
         # request._messages = messages.storage.default_storage(request)
         # manually clear messages (I didn't need it)
         return render(request, self.template_name, context)
@@ -204,54 +202,97 @@ class ViewEvent(View):
         headers = []
         if presentToday: 
             headers = presentToday[0]
+        if request.user.is_authenticated:
+            app_data, created = AppData.objects.get_or_create(user=request.user)
+            recently_opened = app_data.recently_opened
+            recently_opened = deque(recently_opened)
+            recently_opened.appendleft(db.slug)
+            app_data.recently_opened = list(Counter(recently_opened).keys()) # using Counter.values to get a unique but ordered list
+            app_data.save()
         
         return render(request, self.template_name, {'db':db, 'presentToday': presentToday, 'headers':headers})
     
-    def post(self, request, id): 
+    def post(self, request, slug): 
         validation_credentials = request.POST.get('validation_field')
-        db =  Event.objects.get(id=id)
-        attendanceRecordsToday, created = db.attendance_records.get_or_create(date_created=datetime.now().date(), database=db)
+        db =  Event.objects.get(slug=slug)
+        attendanceRecordsToday, created = db.attendance_records.get_or_create(date_created=datetime.now().date())
+        # If person is already checked in then we can exit the function quickly
+        # Otherwise we check every record until we get a match 
+        # If we don't get a match then there is no such person
+        if attendanceRecordsToday.checked_in.get(validation_credentials):
+            messages.info(request, 'Already checked in') 
+            return self.blank(request, {'checked_in':True, 'db':db, 'tag': 'success'})
+        
         with open(db.dataset.path, 'r', newline='') as dataset: 
             reader = csv.DictReader(dataset)
             for data in reader:
-                if validation_credentials.lower() ==  data.get(db.validation_field):
-                    if not attendanceRecordsToday.checked_in.get(validation_credentials):
-                        attendanceRecordsToday.checked_in.update({validation_credentials:True})
-                        attendanceRecordsToday.present.append(data)
-                        attendanceRecordsToday.save()
-                        messages.success(request, 'Checked in successfully')
-                    else: 
-                        messages.info(request, 'Already checked in')
+                if validation_credentials == data.get(db.validation_field):
+                    attendanceRecordsToday.checked_in.update({validation_credentials:True})
+                    attendanceRecordsToday.present.append(data)
+                    attendanceRecordsToday.save()
+                    messages.success(request, 'Checked in successfully')
                     return self.blank(request, {'checked_in':True, 'db':db, 'tag': 'success'})
         messages.error(request, 'No such credentials')
         return self.blank(request, {'checked_in':True, 'db':db, 'tag':'danger'})
-
-class AttendanceList(View):
-    template_name = 'attendance.html'
-    def get(self, request, id): 
-        db = Event.objects.get(id=id)
-        attendanceRecordsToday = db.attendance_records.filter(date_created=datetime.now().date()).first()
-        if attendanceRecordsToday:
-            presentToday = attendanceRecordsToday.present
-            headers = presentToday[0].keys()
-        else: 
-            presentToday = []
-            headers = []
-            messages.info(request,'There are no records from today yet!')
-        return render(request, self.template_name, {'presentToday': presentToday, 'headers':headers})
-    
+        
 class Dashboard(View):
     template_name = 'dashboard.html'
     def get(self, request):
+        # print(request.META.get('HTTP_COOKIE'))
         databases = Event.objects.all()
-        context = {'databases':databases}
+        if request.user.is_authenticated: 
+            app_data, created = AppData.objects.get_or_create(user=request.user)
+            recently_opened = [] # This is going to contain actual objects that will be sent to the template
+            for item in app_data.recently_opened: # app_data.recently_opened contain slugs of events that are recently opened
+                recently_opened.append(Event.objects.get(slug=item))
+                
+        most_attended = self.most_attended(Event.objects.all())
+        context = {'databases':databases, 'recently_opened':recently_opened, 'most_attended':most_attended}
         return render(request, self.template_name, context)
+    
+    def most_attended(self, events):
+        averages = []
+        for event in events: 
+            total = 0
+            count = 0
+            average = 0
+            for record in event.attendance_records.all():
+                total += len(record.present)
+                count += 1
+            if count > 0: # prevent division by zero
+                average = total / count
+            averages.append({'event': event, 'average_attendance': average})
+        
+        # sorting 
+        k = len(averages)
+        for i in range(k): 
+            for j in range(k - 1): 
+                if averages[j].get('average_attendance') < averages[j + 1].get('average_attendance'):
+                    averages[j], averages[j + 1] = averages[j + 1], averages[j]
+        return averages
+                
+        
+            
+        
+        
+            
+            
+                
+                
+            
 
 
-class AddNew(View):
-    template_name = 'add-new.html'
-    def get(self, request):
-        return render(request, self.template_name)
+class AddPerson(View):
+    template_name = 'add-person.html'
+    def get(self, request, slug):
+        db = Event.objects.get(slug=slug)
+        with open(db.dataset.path, 'r', newline='') as csv_file:
+            csv_reader = csv.reader(csv_file)
+            fields = next(csv_reader) # Getting the names of the fields
+        return render(request, self.template_name, {'db': db, 'fields': fields})
+    
+    def post(self, request, slug):
+        return self.get(request, slug)
         
         
         
